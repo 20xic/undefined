@@ -5,6 +5,10 @@ class RunConfig(BaseModel):
     host:str = "localhost"
     port:int = 10990
 
+class Logger(BaseModel):
+    level:str = "INFO"
+    name:str = "USER-SERVICE"
+
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
         env_file=(".env.template",".env"),
@@ -14,6 +18,7 @@ class Settings(BaseSettings):
         extra = "ignore"
     )
     run:RunConfig = RunConfig()
+    logger:Logger = Logger()
 
 
 settings = Settings()
