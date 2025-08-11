@@ -1,0 +1,25 @@
+services:
+  userdb:
+    image: postgres:15
+    container_name: userdb
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=postgres
+    volumes:
+      - userdb_data:/var/lib/postgresql/data
+    ports:
+      - "5454:5432"
+    networks:
+      - network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 10s
+      retries: 20
+
+networks:
+  network:
+
+volumes:
+  userdb_data:
